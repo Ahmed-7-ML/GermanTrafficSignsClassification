@@ -3,7 +3,6 @@ import pickle
 import numpy as np
 import cv2
 from PIL import Image
-from io import BytesIO
 from ImageManipulations import ImageManipulations
 
 with open('knn_model.pkl', 'rb') as f:
