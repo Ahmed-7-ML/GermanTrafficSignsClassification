@@ -29,7 +29,7 @@ streamlit run app.py
   - etc.
 
 ## Screenshots
-![App Interface]()
+![App Interface](AppInterface.png)
 
 ## Contributions
 Contributions are welcome! Please open an issue or submit a pull request to improve the project.
