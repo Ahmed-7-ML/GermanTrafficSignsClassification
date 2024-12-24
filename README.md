@@ -10,7 +10,7 @@ pip install -r requirements.txt
 
 ## How to Run
 1. Clone the repository:
-2. git clone https://github.com/username/project-name.git
+2. git clone [https://github.com/username/project-name.git](https://github.com/Ahmed-7-ML/Traffic-Sign-Classification.git)
 
 ## Navigate to the project directory:
 cd project-name
