@@ -8,22 +8,19 @@ from ImageManipulations import ImageManipulations
 with open('decision_tree_model.pkl', 'rb') as f:
     tree_model = pickle.load(f)
 
-
 def predict_image(image):
     # Preprocess image to the correct format for SVM model
     image = image.resize((32, 32))  # Resize to the size expected by the model
-    image_array = np.array(image).flatten()  # Flatten image for SVM input
+    image_array = np.array(image).flatten()  # Flatten image for model input
     prediction = tree_model.predict([image_array])
     return prediction
 
 def main():
     st.title("Image Enhancement or Prediction App")
 
-    choice = st.selectbox("Choose an option", [
-                "Enhance Image", "Predict Image"])
+    choice = st.selectbox("Choose an option", ["Enhance Image", "Predict Image"])
 
-    uploaded_file = st.file_uploader(
-        "Upload an image", type=["jpg", "png", "jpeg"])
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
@@ -35,10 +32,10 @@ def main():
 
         elif choice == "Enhance Image":
             enhancement_choice = st.selectbox("Choose Enhancement", 
-                    ["Negative", "Add Tint", "Crop", "Adjust Brightness",
-                    "Adjust Contrast", "Grayscale", "Add Shape", "Add Text",
-                    "Histogram Equalization", "Scale", "Translate",
-                    "Rotate", "Blur", "Sharpen", "Edge Detection"])
+                ["Negative", "Add Tint", "Crop", "Adjust Brightness",
+                 "Adjust Contrast", "Grayscale", "Add Shape", "Add Text",
+                 "Histogram Equalization", "Scale", "Translate",
+                 "Rotate", "Blur", "Sharpen", "Edge Detection"])
 
             manipulator = ImageManipulations(uploaded_file)
 
@@ -48,8 +45,7 @@ def main():
             elif enhancement_choice == "Add Tint":
                 color = st.color_picker("Pick a tint color", value="#ff0000")
                 intensity = st.slider("Select Tint Intensity", 0.0, 1.0, 0.5)
-                manipulator.add_tint(color=tuple(
-                    int(color[i:i+2], 16) for i in (1, 3, 5)), intensity=intensity)
+                manipulator.add_tint(color=tuple(int(color[i:i+2], 16) for i in (1, 3, 5)), intensity=intensity)
 
             elif enhancement_choice == "Crop":
                 left = st.number_input("Left", min_value=0, value=0)
@@ -75,15 +71,16 @@ def main():
                             st.slider("Position Y", 0, image.height))
                 size = st.slider("Size", 10, 200, 50)
                 color = st.color_picker("Pick a shape color", value="#ff0000")
-                manipulator.add_shape(shape=shape, position=position, size=size, color=tuple(int(color[i:i+2], 16) for i in (1, 3, 5)))
+                manipulator.add_shape(shape=shape, position=position, size=size, 
+                                      color=tuple(int(color[i:i+2], 16) for i in (1, 3, 5)))
 
             elif enhancement_choice == "Add Text":
                 text = st.text_input("Text", "Sample Text")
                 position = (st.slider("Text Position X", 0, image.width),
                             st.slider("Text Position Y", 0, image.height))
                 color = st.color_picker("Pick text color", value="#ffffff")
-                manipulator.add_text(text=text, position=position, color=tuple(
-                    int(color[i:i+2], 16) for i in (1, 3, 5)))
+                manipulator.add_text(text=text, position=position, 
+                                     color=tuple(int(color[i:i+2], 16) for i in (1, 3, 5)))
 
             elif enhancement_choice == "Histogram Equalization":
                 manipulator.histogram_equalization()
@@ -112,15 +109,14 @@ def main():
                 manipulator.edge_detection()
 
             # Show the manipulated image
-            st.image(manipulator.manipulated,
-                caption="Enhanced Image", use_column_width=True)
+            st.image(manipulator.manipulated, caption="Enhanced Image", use_column_width=True)
 
-        # Option to save the manipulated image
-        save_button = st.button("Save Image")
-        if save_button:
-            output_path = "enhanced_image.jpg"
-            manipulator.save(output_path)
-            st.success(f"Image saved as {output_path}")
+            # Option to save the manipulated image
+            save_button = st.button("Save Image")
+            if save_button:
+                output_path = "enhanced_image.jpg"
+                manipulator.save(output_path)
+                st.success(f"Image saved as {output_path}")
 
 if __name__ == "__main__":
     main()
