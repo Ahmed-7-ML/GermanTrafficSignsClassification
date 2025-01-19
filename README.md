@@ -1,7 +1,7 @@
 # Image Manipulation and Model Prediction App
 
 ## Project Description
-This project is a Streamlit-based application for image manipulation and prediction using an SVM model. It provides various options to enhance images, such as applying filters, adjusting brightness/contrast, and adding shapes, as well as the ability to classify images with a pre-trained SVM model.
+This project is a Streamlit-based application for image manipulation and prediction using an decision tree model. It provides various options to enhance images, such as applying filters, adjusting brightness/contrast, and adding shapes, as well as the ability to classify images with a pre-trained Decision Tree model.
 
 ## Prerequisites
 - Python 3.10 or higher.
